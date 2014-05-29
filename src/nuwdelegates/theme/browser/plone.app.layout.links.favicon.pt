@@ -1,0 +1,3 @@
+<tal:favicon define="portal_url view/site_url">
+    <link rel="shortcut icon" type="image/x-icon" tal:attributes="href string:${portal_url}/++theme++nuwdelegates.theme/images/favicon.ico" />
+</tal:favicon>

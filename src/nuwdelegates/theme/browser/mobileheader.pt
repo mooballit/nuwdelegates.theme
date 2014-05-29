@@ -1,0 +1,34 @@
+<div id="current-worksite" tal:condition="viewlet/isMobile">
+<tal:isadmin tal:condition="viewlet/has_access">
+<form tal:attributes="action string:${context/portal_url}/sitelist">
+    <input id="worksite-search-selection" name="admin-worksite" type="hidden" tal:attributes="value viewlet/worksite/groupid|nothing" />
+    <input id="worksite-search" style="width: 300px;" type="text" tal:attributes="placeholder viewlet/worksite/long_name|string:Search for a worksite" />
+</form>
+<script type="text/javascript">
+jQuery( function ( $ ) {
+    $( '#worksite-search' ).autocomplete( {
+        source: '@@searchworksites.json',
+        minLength: 2,
+        select: function ( e, ui ) {
+            e.preventDefault();
+
+            $( this ).val( ui.item.label );
+            $( '#worksite-search-selection' ).val( ui.item.value ).parent().submit();
+        },
+        focus: function ( e, ui ) {
+            e.preventDefault();
+            $( this ).val( ui.item.label );
+        }
+    } );
+} );
+</script>
+</tal:isadmin>
+<tal:isnotadmin tal:condition="not:viewlet/has_access">
+    <tal:hasworksite tal:condition="viewlet/worksite">
+        <h2 tal:content="viewlet/worksite/long_name"></h2>
+    </tal:hasworksite>
+    <tal:nohasworksite tal:condition="not:viewlet/worksite">
+        <h2>No worksite set</h2>
+    </tal:nohasworksite>
+</tal:isnotadmin>
+</div>

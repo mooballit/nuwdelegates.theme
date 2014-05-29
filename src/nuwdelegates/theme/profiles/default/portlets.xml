@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<portlets>
+
+  <portlet 
+    addview="nuwdelegates.theme.nav.portlet"
+    title="Union Rep Navigation"
+    description="A portlet to navigate the Union Rep site."/>
+
+</portlets>

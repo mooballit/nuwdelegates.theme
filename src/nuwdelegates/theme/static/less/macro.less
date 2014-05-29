@@ -1,0 +1,115 @@
+/* NUW Macros */
+@darkgrey: #53626F;
+@lightgrey: #A9B0B7;
+@lightestgrey: #EDEEF0;
+@bordergrey: #DDD;
+@nuwred: #E3173E;
+@nuwerrred: lighten(@nuwred, 40%);
+@nuwyellow: #EAE837;
+@nuwlightgrey: #eeeff1;
+@navhighlight: #F5F49A;
+
+@nuwDarkGrey:       #53626f;
+@nuwGrey:           #a9b0b7;
+@nuwLightGrey:      #eeeff1;
+@nuwRed:            #e3173e;
+@nuwYellow:         #eae837;
+@nuwGreen:          #39b54a;
+@nuwGreen2:         #8dc63f;
+
+@textColor:         @nuwDarkGrey;
+@baseFontFamily:    OpenSans, Sans;
+
+@headingsFontFamily:FunctionProBold;
+@headingsColor:     @nuwRed;
+
+/* Portlet Macro Styles */
+.portlet-header {
+    text-transform: uppercase;
+    font-family: FunctionProBold;
+    font-size: 18px;
+    color: @darkgrey !important;
+}
+
+.portlet-item-header {
+    font-family: OpenSans;
+    font: OpenSans;
+    font-size: 12px;
+    color: @nuwred !important;
+}
+
+.portlet-item-border (@thickness: 2px, @style: dotted) {
+    border-top: @thickness @style @bordergrey;
+}
+
+@portlet-container-padding: 0px;
+@portlet-header-padding: 12px 11px 12px 11px;
+@portlet-item-vert-padding: 4px;
+@portlet-item-horiz-padding: 0px;
+@portlet-item-vert-margin: 0px;
+@portlet-item-horiz-margin: 11px;
+@portlet-footer-padding: @portlet-item-vert-padding 0px 15px 0px;
+
+/* Custom Widget Macro Styles */
+.widget-item() {
+    font-size: 13px;
+    font-family: OpenSans;
+    color: white !important;
+}
+
+@widget-width: 737px;
+@widget-container-padding: 15px 20px 12px 20px;
+@widget-header-padding: 0px 0px 10px 0px;
+@widget-item-margin: 0px 30px 0px 0px;
+
+/* General Use Macro Styles */
+.rounded-corners (@radius: 5px) {
+    border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+}
+
+.embelished-borders (@thickness: 1px, @colour: @lightgrey) {
+    border-style: none;
+    border-top: @thickness solid @colour;
+    border-bottom: @thickness solid @colour;
+}
+
+.styled-button() {
+    .rounded-corners;
+    
+    background-color: @lightgrey;
+    font-family: FunctionProBold !important;
+    text-transform: uppercase !important;
+    font-size: 12px !important;
+    border: none;
+    
+    color: white;
+    padding: 4px 10px;
+
+    &:hover {
+        background-color: lighten(@lightgrey, 10%);
+    }
+}
+
+.styled-textarea() {
+    .rounded-corners;
+    
+    padding: 5px;
+    font-size: 14px !important;
+    
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    display: inline;
+    resize: none;
+    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.styled-dropdown() {
+    .rounded-corners;
+    
+    padding: 5px;
+    background-color: white;
+}

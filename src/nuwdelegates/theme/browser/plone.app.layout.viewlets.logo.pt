@@ -1,0 +1,28 @@
+<div id="portal-logo" tal:define="rooturl context/@@plone_portal_state/navigation_root_url; thisurl python:request['URL']">
+    <div id="mobile-nav-container">
+      <a class="toggle-nav" href="#"><img src="/++theme++nuwdelegates.theme/images/threelines.png"/></a>
+      <ul id="mobilenav">
+        <li tal:condition="python:not 'front-page' in thisurl"><a tal:attributes="href string:${rooturl}">Discussion</a></li>
+        <li tal:condition="python:'front-page' in thisurl" class="selected"><a tal:attributes="href string:${rooturl}">Discussion</a></li>
+        <li tal:condition="python:not 'sitelist' in thisurl"><a tal:attributes="href string:${rooturl}/sitelist" >Site List</a></li>
+        <li tal:condition="python:'sitelist' in thisurl" class="selected"><a tal:attributes="href string:${rooturl}/sitelist" >Site List</a></li>
+        <li tal:condition="python:not 'events' in thisurl"><a tal:attributes="href string:${rooturl}/events">Events</a></li>
+        <li tal:condition="python:'events' in thisurl" class="selected"><a tal:attributes="href string:${rooturl}/events">Events</a></li>
+        <li tal:condition="python:not 'training' in thisurl"><a tal:attributes="href string:${rooturl}">Training</a></li>
+        <li tal:condition="python:'training' in thisurl" class="selected"><a tal:attributes="href string:${rooturl}">Training</a></li>
+        <li tal:condition="python:not 'worksitenoticeboard' in thisurl"><a tal:attributes="href string:${rooturl}">Worksite Noticeboard</a></li>
+        <li tal:condition="python:'worksitenoticeboard' in thisurl" class="selected"><a tal:attributes="href string:${rooturl}">Worksite Noticeboard</a></li>
+        <li tal:condition="python:not 'resources' in thisurl"><a tal:attributes="href string:${rooturl}">Resources</a></li>
+        <li tal:condition="python:'resources' in thisurl" class="selected"><a tal:attributes="href string:${rooturl}">Resources</a></li>
+        <li tal:condition="python:not 'sendsms' in thisurl"><a tal:attributes="href string:${rooturl}">Send SMS</a></li>
+        <li tal:condition="python:'sendsms' in thisurl" class="selected"><a tal:attributes="href string:${rooturl}">Send SMS</a></li>
+      </ul>
+    </div>
+    <a metal:define-macro="portal_logo"
+       accesskey="1"
+       tal:attributes="href view/navigation_root_url"
+       i18n:domain="plone">
+        <img id="nuwlogo" src="/++theme++nuwdelegates.theme/images/nuw-logo.png" />
+        <span id="delegates"><h2>Union Rep</h2></span>
+    </a>
+</div>

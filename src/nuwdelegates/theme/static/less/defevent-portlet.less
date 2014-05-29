@@ -1,0 +1,46 @@
+dl.portlet.portletEvents {
+    .rounded-corners;
+    background-color: @lightestgrey;
+    padding: @portlet-container-padding;
+    
+    dt.portletHeader {
+        padding: @portlet-header-padding;
+        
+        background-color: transparent;
+
+        a:link, a:visited, a:hover {
+            .portlet-header;
+        }
+    }
+    
+    dd.portletItem {
+        .portlet-item-border;
+        margin: @portlet-item-vert-margin @portlet-item-horiz-margin;
+        padding: @portlet-item-vert-padding @portlet-item-horiz-padding;
+        
+        a:link, a:visited, a:hover {
+            .portlet-item-header;
+            
+            padding-bottom: 0;
+            border: none;
+        }
+        
+        span.portletItemDetails {
+            padding-top: 0;
+            margin-left: 0;
+        }
+    }
+
+    dd.portletFooter {
+        .portlet-item-border;
+        padding: @portlet-footer-padding;
+        margin: @portlet-item-vert-margin @portlet-item-horiz-margin;
+        
+        a:link, a:visited, a:hover {
+            .portlet-item-header;
+            
+            padding-bottom: 0;
+            border: none;
+        }
+    }
+}

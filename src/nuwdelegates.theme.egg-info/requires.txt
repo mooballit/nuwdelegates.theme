@@ -1,0 +1,7 @@
+setuptools
+Products.CMFPlone
+collective.lesscss
+plone.app.theming
+nuw.types
+plone.app.jquery >= 1.7.2
+z3c.jbot>=0.6.0

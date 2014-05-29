@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<metal:column fill-slot="column_two_slot" />
+
+<body>
+<metal:main fill-slot="content">
+
+    <h1 class="documentFirstHeading">Print Registry Overview</h1>
+    <p class="documentDescription">
+        An overview of all users that have printed and their last print date and time. Click a username to navigate to complete list of prints.
+    </p>
+    <tal:batching define="batch view/batch">
+        <h3 class="nuw-subheader">User prints</h3>
+        <table class="listing">
+            <thead>
+                <tr>
+                    <th class="nosort">Username</th>
+                    <th class="nosort">Number of prints</th>
+                    <th class="nosort">Last print</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tal:loopUsers tal:repeat="user batch/_sequence">
+                    <tr tal:define="odd repeat/user/odd"
+                            tal:attributes="class python:odd and 'odd' or 'even'">
+                        <td> 
+                            <a tal:attributes="href string:@@user-prints?id=${user/id}"><span tal:replace="structure user/username" /></a>
+                        </td>
+                        <td> 
+                            <span tal:replace="structure user/num_prints" />
+                        </td>
+                        <td> 
+                            <span tal:replace="structure user/last_print" />
+                        </td>
+                    </tr>
+                </tal:loopUsers>
+            </tbody>
+        </table>
+
+        <p tal:condition="not:batch" class="documentDescription">There are no Users found.</p>
+
+        <metal:navigation use-macro="context/batch_macros/macros/navigation"></metal:navigation>
+
+    </tal:batching>
+</metal:main>
+
+</body>
+</html>

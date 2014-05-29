@@ -1,0 +1,192 @@
+.template-sitelist
+{
+    #portal-column-content
+    {
+        margin: 0;
+    }
+
+    .grid-loading
+    {
+        padding: 50px;
+        background: url( /++theme++nuwdelegates.theme/images/red-ajax-load.gif ) no-repeat right;
+        display: inline-block;
+        
+        h3
+        {
+            display: inline-block;
+        }
+    }
+
+    
+    #grid-header
+    {
+        padding: 0 10px;
+        background: white;
+        white-space: nowrap;
+        min-width: 830px;
+
+        .ui-icon
+        {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        
+        .button-text
+        {
+            display: inline-block;
+            position: relative;
+            top: 2px;
+            margin-right: 5px;
+        }
+
+        .grid-title
+        {
+            color: @nuwred;
+            text-transform: uppercase;
+            font-size: 2em;
+            vertical-align: middle;
+            display: inline-block;
+            margin-right: 5px;
+            float: left;
+        }
+        
+        .grid-search
+        {
+            float: right;
+            display: inline-block;
+            position: relative;
+            margin-top: 13px;
+            margin-right: 40px;
+            margin-left: 5px;
+        }
+        
+        button
+        {
+            position: relative;
+            float: right;
+            .styled-button();
+            margin: 5px;
+            margin-top: 13px;
+        }
+        
+        button:hover
+        {
+            background: lighten(@lightgrey, 10%);
+            cursor:pointer;cursor:hand;
+        }
+    }
+
+    #grid
+    {
+        .slick-header-column.ui-state-default
+        {
+            color: #000;
+        }
+
+        .slick-header.ui-state-default
+        {
+            background: #E6E6E6;
+        }
+        
+        .grid-canvas
+        {
+            .slick-cell.r1 div
+            {
+                border-radius: 10px;
+                color: #fff;
+                font-weight: bold;
+                text-align: center;
+                font-size: .8em;
+                background: #000;
+
+                &.status-financial
+                {
+                    background: @nuwGreen;
+                }
+                &.status-unfinancial
+                {
+                    background: darken( @nuwYellow, 10% );
+                }
+                &.status-nonmember
+                {
+                    background: @nuwRed;
+                }
+            }
+        }
+    }
+
+
+    #add-member-dialog
+    {
+        display: none;
+        
+        .form-section
+        {
+            background: @nuwlightgrey;
+            border-radius: 5px;
+            padding: 10px;
+
+            .field
+            {
+                float: left;
+                clear: none;
+                width: 359px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+
+                label
+                {
+                    width: 33%;
+                    display: inline-block;
+                    font-weight: normal;
+                }
+
+                input, select
+                {
+                    width: 60%;
+                    padding: 5px;
+                    border-radius: 5px;
+                    background: #fff;
+                    border: 0;
+                }
+            }
+            
+            .field.title-field
+            {
+                float: none;
+            }
+
+            .field.invalid
+            {
+                color: @nuwred;
+
+                input, select
+                {
+                    background: @nuwerrred;
+                    color: @nuwred;
+                }
+            }
+        }
+    }
+
+    #edit-columns .column
+    {
+        display: inline-block;
+        width: 185px;
+    }
+}
+
+input[type=submit]
+{
+    .styled-button();
+    background-color: @nuwred;
+    float: right;
+    margin: 5px;
+}
+
+input[type=submit]:hover
+{
+    background-color: lighten(@nuwred, 10%);
+    cursor:pointer;cursor:hand;
+}

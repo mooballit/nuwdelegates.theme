@@ -1,0 +1,420 @@
+@import url("macro.less");
+@import url("webfonts.less");
+@import url("defstatictext-portlet.less");
+@import url("defevent-portlet.less");
+@import url("smssend.less");
+@import url("theme-styles.less");
+@import url("nuwnav-portlet.less");
+@import url("defnavigation-portlet.less");
+@import url("wall.less");
+@import url("members-grid.less");
+@import url("responsive.less");
+
+/* Edits that haven't been approved but seem to fit... AS */
+#edit-bar, #content ul.formTabs, #content-core ul.formTabs {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-top-left-radius: 0;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topright: 0;
+}
+
+#edit-bar {
+    font-size: 60%;
+}
+
+/* CSS for the Login Page */
+#login-container {
+    width: 100%;
+    float: none;
+
+    #content {
+        margin-top: 50px;
+        .rounded-corners;
+
+        width: 320px;
+        margin-left: auto;
+        margin-right: auto;
+
+        padding: 30px;
+        padding-bottom: 55px;
+        background-color: @darkgrey;
+
+        #login-form div.field {
+            margin-bottom: 7px;
+
+            text-align: right;
+            input {
+                .styled-textarea();
+
+                width: 247px;
+                background: white !important;
+                border-style: none;
+            }
+
+            label {
+                .widget-item;
+
+                font-weight: none;
+                text-align: left;
+                width: 60px;
+                margin-right: 10px;
+            }
+        }
+
+        p,li {
+            color: white;
+        }
+
+        div.formControls {
+            position: relative;
+            float: right;
+            margin: 12px 0px;
+            top: -5px;
+            width: 100%;
+
+            input.context {
+                .styled-button;
+
+                margin: 0px;
+                padding: 5px 10px;
+                color: white;
+                background: @nuwred;
+            }
+
+            input.context:hover {
+                background: lighten(@nuwred, 10%) !important;
+                cursor:pointer;cursor:hand;
+            }
+        }
+
+        #login-forgotten-password {
+            text-align: left;
+
+            p.discreet {
+                position: relative;
+                margin-bottom: 0;
+                height: 10%;
+                float: left;
+                top: -40px;
+            }
+
+            a:link, a:visited, a:hover {
+                .widget-item;
+
+                font-weight: bold;
+                border: none;
+            }
+        }
+    }
+}
+
+/* CSS for the Delegates Section */
+#header-container {
+    background-color: @nuwred;
+    min-width: 1024px;
+    width: 100%;
+}
+
+#logo {
+    display: inline-block;
+    float: none;
+    right: 100%;
+
+    #portal-logo {
+        margin: 13px 11px 10px 35px;
+
+        #nuwlogo {
+            display: inline-block;
+        }
+    }
+
+    #delegates {
+        position: relative;
+        display: inline-block;
+        background-color: @nuwyellow;
+        width: 160px;
+        height: 37px;
+        bottom: 9px;
+        left: 18px;
+
+        h2 {
+            line-height: 39px;
+            text-align: center;
+        }
+    }
+}
+
+#logsearch-container {
+    position:relative;
+    top: 36px;
+    float: right;
+    margin-right: 40px;
+}
+
+#login {
+    display: inline-block;
+    float: right;
+
+    #portrait {
+        z-index: 1;
+        position: absolute;
+        left: -32px;
+        top: 0px;
+        float: none;
+        display: inline-block;
+
+        background-repeat:no-repeat;
+        background-position: center center;
+
+        overflow: hidden;
+        width: 25px;
+        height: 25px;
+
+        &.img-wide {
+            background-size: auto 100%;
+        }
+
+        &.img-high {
+            background-size: 100% auto;
+        }
+    }
+}
+
+#current-worksite {
+    display: inline-block;
+    float: right;
+    margin-right: 90px;
+
+    h2
+    {
+        color: white;
+    }
+
+    select
+    {
+        .styled-dropdown;
+        border: 0;
+    }
+}
+
+#column-container {
+    min-width: 1024px;
+}
+
+input[type="text"]:focus, textarea:focus {
+    background: white;
+}
+
+#portal-personaltools {
+    background-color: transparent;
+    padding: 5px;
+}
+
+#portal-personaltools .actionMenuContent {
+    text-align: right;
+}
+
+#portal-personaltools.actionMenu.activated dt a,
+#portal-personaltools.actionMenu.activated dd a,
+#portal-personaltools.actionMenu.activated dd div,
+#portal-personaltools.actionMenu.deactivated dt {
+    /* Hacks to fix search bar shift on login menu click */
+    margin: 0;
+}
+
+#portal-personaltools dd {
+    background: @nuwred;
+}
+
+#portal-personaltools a:link, #portal-personaltools a:visited  {
+    color: #FFFFFF !important;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#portal-personaltools dd a:hover {
+    background: white;
+    color: @nuwred !important;
+}
+
+#portal-siteactions {
+    padding-bottom: 0;
+}
+
+#footer-container {
+    min-width: 1024px;
+    width: 100%;
+}
+
+#portal-footer-wrapper {
+    left: 0px;
+    width: 100%;
+    float: right;
+}
+
+#portal-footer {
+    text-align: right;
+    line-height: 40px;
+    padding: 0 43px 0 0;
+    margin: 0;
+}
+
+/* Portlet Modifications */
+#portal-column-one {
+    width: 142px;
+}
+
+#portal-column-content {
+    /* Fix for when in Preferences Section */
+    div.position-0 {
+        margin-left: 0;
+    }
+
+    div.width-full {
+        width: 780px;
+    }
+}
+
+#portal-column-two {
+    padding-top: 65px;
+    width: 220px;
+}
+
+div.position-0 {
+    left: 0%;
+    margin-left: 33px;
+}
+
+div.position-1\3a 4 {
+    left: 0%;
+    margin-left: 20px;
+}
+
+div.position-3\3a 4 {
+    left: 0%;
+    margin-left: 20px;
+}
+
+dl.portlet {
+    margin-bottom: 2em;
+}
+
+#portal-column-content.width-1\3a 2 {
+    width: 540px;
+}
+
+#portal-column-content.width-3\3a 4 {
+    width: 780px;
+}
+
+#portal-column-content.width-full {
+    width: 940px;
+}
+
+#portal-colophon {
+    margin-bottom: 0px;
+}
+
+div.formControls
+{
+    min-height: 2em;
+}
+
+/* For print tracking */
+@media print {
+    body:after {
+      content:url("@@hidden-print")
+    }
+}
+
+/* Mobile stuffs */
+
+/* Disable it initially */
+.tinynav { display: none; }
+#mobile-nav-container { display: none; }
+
+/* iPad in landscape */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+    #nuwlogo {
+        height: 38px;
+    }
+    #portal-logo {
+        margin: 5px 10px !important;
+    }
+    #logsearch-container {
+        top: 15px;
+    }
+    #header-container {
+        height: 50px;
+    }
+    #delegates {
+        height: 35px;
+        margin-top:3px;
+    }
+    #container {
+        max-width: 1024px !important;
+    }
+    .template-sitelist #grid-header button {
+        padding: 2px 4px;
+    }
+}
+
+/* iPad in portrait */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+    #nuwlogo {
+        height: 38px;
+    }
+    #portal-logo {
+        margin: 5px 10px !important;
+    }
+    #logsearch-container {
+        top: 15px;
+    }
+    #header-container {
+        height: 50px;
+    }
+    #delegates {
+        height: 35px;
+        margin-top:3px;
+    }
+    #container {
+        max-width: 768px !important;
+    }
+    .template-sitelist #grid-header button {
+        padding: 2px 4px;
+    }
+}
+
+@media only screen
+and (max-device-width : 768px) {
+    #nuwlogo {
+        height: 38px;
+    }
+    #portal-logo {
+        margin: 5px 10px !important;
+    }
+    #logsearch-container {
+        top: 15px;
+    }
+    #header-container {
+        height: 50px;
+    }
+    #delegates {
+        height: 35px;
+        margin-top:3px;
+    }
+    #container {
+        max-width: 768px !important;
+    }
+    .template-sitelist #grid-header button {
+        padding: 2px 4px;
+    }
+}

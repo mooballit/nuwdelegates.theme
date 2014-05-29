@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules
+  xmlns="http://namespaces.plone.org/diazo"
+  xmlns:css="http://namespaces.plone.org/diazo/css"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  css:if-content="#visual-portal-wrapper"
+  >
+
+  <theme href="login-page.html" css:if-content="#login-form" />
+  <theme href="index.html" />
+
+  <!-- LOGIN PAGE -->
+  <replace content="/html/body/div/div/div/div/div/div/div/p/span/a/text()" css:if-content="#login-form" >
+    Forgotten your password?
+  </replace>
+  <replace content="/html/body/div/div/div/div/div/div/form/div/div/label[@for='__ac_name']/text()" css:if-content="#login-form" >
+    Email
+  </replace>
+  <replace content="input[@class='context']" css:if-content="#login-form" >
+    <input class="context" type="submit" name="submit" value="Login &gt;" />
+  </replace>
+
+  <drop content="/html/body/div/div/div/div/div/div/div/p/text()" css:if-content="#login-form" />
+  <drop content="/html/body/div/div/div/div/div/div/div/strong" css:if-content="#login-form" />
+  <replace css:content-children="#portal-column-content" css:theme-children="#login-container" css:if-content="#login-form"/>
+  <!-- ADD HEAD -->
+  <before theme-children="/html/head" content="/html/head/link | /html/head/style" />
+  <before theme-children="/html/head" content="/html/head/script" />
+  <before theme-children="/html/head" content="/html/head/meta[not(@name)]|/html/head/meta[@name!='viewport']" />
+
+  <!-- HEADER -->
+  <append css:content="#portal-logo" css:theme="#logo" />
+<!-- Meta tags -->
+  <!-- <append css:content="head meta" css:theme="head" /> -->
+  <before theme-children="/html/head">
+       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.1"/>
+  </before>
+  <replace css:content="[id='listing-table']">
+    <table>
+      <xsl:copy-of select="./@*" />
+      <xsl:attribute name="class"><xsl:value-of select="./@class" /> icons-on</xsl:attribute>
+      <xsl:copy-of select="./node()" />
+    </table>
+  </replace>
+  <drop css:content="h5[class$='hiddenStructure']" />
+  <replace css:content-children="#portal-personaltools-wrapper" css:theme-children="#login" />
+  <replace css:content="#portal-globalnav" css:theme="#global-nav" />
+
+  <replace css:content="#current-worksite" css:theme="#current-worksite" />
+
+  <!-- CONTENT -->
+  <copy attributes="*" css:theme="#portal-column-content" css:content="#portal-column-content" />
+  <copy attributes="*" css:theme="#portal-column-one" css:content="#portal-column-one" />
+  <copy attributes="*" css:theme="#portal-column-two" css:content="#portal-column-two" />
+  <replace css:content-children="#portal-column-content" css:theme-children="#portal-column-content" />
+  <replace css:content-children="#portal-column-one" css:theme-children="#portal-column-one" />
+  <replace css:content-children="#portal-column-two" css:theme-children="#portal-column-two" />
+
+  <!-- FOOTER -->
+  <replace css:content-children="#portal-colophon" css:theme-children="#portal-colophon" />
+  <replace css:content-children="#portal-siteactions" css:theme-children="#portal-siteactions" />
+  <replace css:content-children="#kss-spinner" css:theme-children="#kss-spinner" />
+
+  <merge attributes="class" css:theme="body" css:content="body" />
+
+  <drop css:content="#sfc-ical-export" />
+
+</rules>

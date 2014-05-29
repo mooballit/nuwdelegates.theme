@@ -1,0 +1,85 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:grok="http://namespaces.zope.org/grok"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="nuwdelegates.theme">
+
+  <five:registerPackage package="." initialize=".initialize" />
+  <grok:grok package="." />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="nuwdelegates.theme"
+      directory="profiles/default"
+      description="Installs the nuwdelegates.theme package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <plone:static type="theme" directory="static" />
+  <include package="z3c.jbot" file="meta.zcml" />
+
+  <browser:jbot
+      directory="browser"
+      layer=".interfaces.IThemeSpecific"
+      />
+
+  <browser:menuItem
+      for="Products.ATContentTypes.interface.IATFolder"
+      menu="plone_displayviews"
+      title="NUW Folder View"
+      action="@@nuw_folder_view"
+      description="List folder contents based on NUW Style"
+      />
+
+  <genericsetup:registerProfile
+      name="nuwdelegates.theme.nav.portlet"
+      title="Union Rep Navigation"
+      directory="profiles/default"
+      description="A portlet to navigate the NUW Delegates site."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <plone:portlet
+      name="nuwdelegates.theme.nav.portlet"
+      interface=".delegatesnav.INavigationNUW"
+      assignment=".delegatesnav.Assignment"
+      renderer=".delegatesnav.Renderer"
+      addview=".delegatesnav.AddForm"
+      editview=".delegatesnav.EditForm"
+      />
+
+  <plone:portletRenderer
+      portlet="plone.app.portlets.portlets.events.IEventsPortlet"
+      layer=".interfaces.IThemeSpecific"
+      template="browser/events.pt"
+      />
+
+  <browser:page
+    for="nuwdelegates.theme.send_sms.sendsms.ISendSMS"
+    name="sendsms"
+    permission="zope2.Public"
+    class=".send_sms.sendsms.SendSMS"
+    />
+
+<plone:static
+  directory="static/less"
+  type="theme"
+  name="less"
+  />
+
+    <genericsetup:upgradeSteps
+      source="1"
+      destination="2"
+      profile="nuwdelegates.theme:default">
+
+      <genericsetup:upgradeStep
+        title="Adding custom column sitelist configuration field"
+        description="adding colum_config field"
+        handler=".upgrades.upgrade_1_to_2"
+        />
+    </genericsetup:upgradeSteps>
+</configure>

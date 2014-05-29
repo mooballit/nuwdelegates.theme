@@ -1,0 +1,375 @@
+#content .wall
+{
+    .btn
+    {
+        font-family: @headingsFontFamily;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-shadow: none;
+        color: white;
+        background-color: @nuwRed;
+        background-image: none;
+
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+
+        padding: 4px 10px;
+
+        i {
+            float: right !important;
+            margin-top: 4px;
+            margin-left: 5px;
+        }
+
+        &:link, &:visited, &:hover
+        {
+            color: white !important;
+            background-color: lighten(@nuwGrey, 5%);
+        }
+    }
+
+    .post-form
+    {
+        background: @nuwDarkGrey;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 25px;
+
+        .errors
+        {
+            border: 1px solid @nuwRed;
+            border-radius: 5px;
+            background: lighten(@nuwRed, 40%);
+            color: @nuwRed;
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+
+        .private-checkbox, .email-checkbox
+        {
+            position: relative;
+            margin: 5px;
+            margin-top: 16px;
+            float: right;
+            color: white !important;
+        }
+
+        .email-send-options
+        {
+            float: right;
+            clear: right;
+            text-align: right;
+            font-weight: bold;
+            margin-top: 5px;
+
+            .email-subject
+            {
+                display: block;
+
+                input
+                {
+                    margin: 0;
+                }
+            }
+
+            label
+            {
+                display: inline-block;
+                margin-left: 5px;
+            }
+        }
+
+        .post-images
+        {
+            display: inline-block;
+            margin-top: 5px;
+
+            h4
+            {
+                &:hover
+                {
+                    color: lighten(@nuwRed, 10%);
+                    cursor:pointer;cursor:hand;
+                }
+
+                &:after
+                {
+                    content: ' +';
+                    font-size: 1.2em;
+                }
+
+                &.open:after
+                {
+                    content: ' -';
+                    font-size: 1.2em;
+                }
+
+            }
+
+            .img-inputs
+            {
+                input
+                {
+                    float: none;
+                    display: block;
+                    margin: 0;
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+
+    .subpost-form
+    {
+        border-radius: 5px;
+        background: @nuwLightGrey;
+        padding: 10px;
+        margin-top: 10px;
+        display: none;
+
+        form
+        {
+            display: none;
+        }
+    }
+
+    .post-form, .subpost-form
+    {
+        textarea
+        {
+            .embelished-borders;
+            .styled-textarea();
+
+            border-left: 1px solid @nuwLightGrey;
+            border-right: 1px solid @nuwLightGrey;
+            min-height: 70px;
+            width: 97%;
+            resize: vertical;
+        }
+
+        button
+        {
+            .embelished-borders;
+            .styled-button();
+
+            position: relative;
+            float: right;
+            margin: 12px 0 5px 10px;
+        }
+
+        button:hover
+        {
+            cursor:pointer;cursor:hand;
+        }
+    }
+
+    .form-controlls
+    {
+        color: white;
+
+        label
+        {
+            font-weight: bold;
+
+            input[type=checkbox]
+            {
+                margin: 0;
+                margin-top: -2px;
+                margin-right: 1px;
+            }
+
+            &.disabled
+            {
+                opacity: .5;
+            }
+        }
+    }
+
+    .author-avatar
+    {
+        overflow: hidden;
+
+        &.img-wide
+        {
+            background-size: auto 100%;
+        }
+
+        &.img-high
+        {
+            background-size: 100% auto;
+        }
+    }
+
+    // Base post
+    .post
+    {
+        clear: both;
+
+        &.private > .post-body
+        {
+            background: lighten(@nuwGrey, 15%);
+        }
+
+        .avatar-container
+        {
+            float: left;
+            background: url( /++theme++nuwdelegates.theme/images/wall-arrow.png ) right no-repeat;
+            margin-top: 15px;
+            padding-right: 13px;
+
+            .author-avatar
+            {
+                width: 48px;
+                height: 48px;
+                background-repeat:no-repeat;
+                background-position: center center;
+            }
+        }
+        .post-body
+        {
+            border-left: 1px solid @nuwLightGrey;
+            border-top: 1px solid @nuwLightGrey;
+            border-radius: 5px;
+            margin-left: 60px;
+            padding: 10px;
+            padding-left: 20px;
+
+            .author-name
+            {
+                color: @nuwRed;
+            }
+
+            .author-name, p
+            {
+                font-size: 14px;
+            }
+
+            .images
+            {
+                a
+                {
+                    float: left;
+                    margin-right: 5px;
+                    margin-bottom: 5px;
+                }
+            }
+
+        }
+    }
+
+
+    .posts
+    {
+        // Top level post
+        > .post
+        {
+            margin-bottom: 10px;
+
+            > .post-body
+            {
+                margin-bottom: 30px;
+                > div > .author-name
+                {
+                    font-weight: bold;
+                }
+                .del-post
+                {
+                    display: none;
+                    float: right;
+
+                    background: @nuwGrey;
+                    color: #fff !important;
+                    font-weight: bold;
+                    width: 20px;
+                    height: 20px;
+                    text-align: center;
+                    border-radius: 5px;
+                }
+                .post-date, .post-private
+                {
+                    font-size: 9px;
+                    margin-left: 10px;
+                    vertical-align: baseline;
+                }
+            }
+
+            &:hover > .post-body, &.hovered > .post-body
+            {
+                border: 2px solid @nuwLightGrey;
+                margin-left: 59px;
+                padding: 9px;
+                padding-left: 20px;
+
+                .del-post
+                {
+                    display: inline-block;
+                }
+            }
+        }
+
+        .sub-posts
+        {
+            border-radius: 5px;
+            background: @nuwLightGrey;
+            padding: 10px;
+
+            // Sub-post
+            .post
+            {
+                margin-bottom: 10px;
+
+                .author-avatar
+                {
+                    float: left;
+                    margin: 0;
+                    width: 24px;
+                    height: 24px;
+                    background-repeat:no-repeat;
+                    background-position: center center;
+                }
+
+                .post-body
+                {
+                    border: 0;
+                    margin-left: 34px;
+                    padding: 0;
+
+                    .author-name, p
+                    {
+                        display: inline;
+                        font-size: 11px !important;
+                    }
+                }
+            }
+        }
+
+        .post-loader
+        {
+            border-radius: 5px;
+            background: @nuwLightGrey;
+            padding: 10px;
+
+            i.ajax-loader
+            {
+                display: inline-block;
+                vertical-align: middle;
+                width: 32px;
+                height: 32px;
+                background: url( /++theme++nuwdelegates.theme/images/red-ajax-load.gif );
+            }
+
+        }
+    }
+}
+
+/* For bootstrap-collapse stuff */
+.collapse {
+    height: 0;
+    overflow: hidden;
+    position: relative;
+    transition: height 0.35s ease 0s;
+}
+.collapse.in {
+  height: auto;
+}

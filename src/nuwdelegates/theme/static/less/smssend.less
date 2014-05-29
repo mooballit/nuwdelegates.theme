@@ -1,0 +1,138 @@
+#sendsms {
+    .rounded-corners;
+    
+    padding: @widget-container-padding;
+    width: @widget-width;
+    background-color: @darkgrey;
+
+    .smspara {
+        .widget-item;
+    }
+
+    .counter {
+        border: none;
+        background: transparent;
+        width: 23px;
+        text-align: right;
+    }
+
+    .description {
+        display: inline-block;
+        float: left;
+        width: 300px;
+    }
+
+    .dropmenus {
+        display: inline-block;
+        position: relative;
+        float: right;
+        
+        top: -5px;
+    }
+
+    textarea.smsentry {
+        .styled-textarea;
+        .embelished-borders;
+        
+        height: 138px;
+        margin-bottom: 12px;
+        padding: 10px;
+    }
+    
+    .button {
+        .styled-button;
+        .embelished-borders(1px, #949da6);
+        
+        float: right;
+    }
+    
+    #sms-worksite-search {
+        .styled-dropdown;
+        .embelished-borders;
+        background-color: white;
+        
+        margin: 5px 0 5px 20px;
+        width: 286px;
+    }
+    
+    select
+    {
+        .styled-dropdown;
+        .embelished-borders;
+        color: @nuwred;
+        background-color: white;
+        
+        margin: 5px 0 5px 20px;
+        width: 290px;
+    }
+    
+    .err-shadow {
+        border: 2px solid @nuwred !important;
+    }
+    
+    #finalise {
+        margin-bottom: 5px;
+        button:hover {
+            background: lighten(@lightgrey, 10%);
+            cursor:pointer;cursor:hand;
+        }
+    }
+}
+
+
+#message-content {
+    .rounded-corners;
+    
+    width: @widget-width;
+    padding: @widget-container-padding;
+    background-color: @lightestgrey;
+
+    margin-top: 20px;
+
+    .wrap-style {
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    dt.messageHeader {
+        .portlet-header;
+        
+        padding: @widget-header-padding;
+    }
+    
+    dd.message {
+        .portlet-item-border;
+        
+        padding: @portlet-item-vert-padding @portlet-item-horiz-padding;
+        
+        margin: 0px;
+    }
+    
+    span.toContainer {
+        .wrap-style;
+        
+        margin-right: 2%;
+        
+        width: 20%;
+    }
+    
+    span.sentContainer {
+        .wrap-style;
+        
+        width: 22%;
+    }
+    
+    span.messageContainer {
+        .wrap-style;
+        
+        margin-right: 2%;
+
+        width: 53%;
+    }
+    
+    .itemHeader {
+        .portlet-item-header;
+    }
+}

@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<metal:column fill-slot="column_two_slot" />
+
+<body>
+<metal:main fill-slot="content">
+
+    <h1 class="documentFirstHeading">Logins for <span tal:replace="structure string:${view/person/firstname} ${view/person/lastname}" /></h1>
+    <p class="documentDescription">
+        Listing of all logins by account with username <b><span tal:replace="structure view/person/email" /></b>.<br/><br/>
+        
+        <a tal:attributes="href string:@@logins-overview">Back to login overview</a>
+    </p>
+    <tal:batching define="batch view/batch">
+        <h3 class="nuw-subheader">User logins</h3>
+        <table class="listing">
+            <thead>
+                <tr>
+                    <th class="nosort">Id</th>
+                    <th class="nosort">Logged in</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tal:loopUsers tal:repeat="login batch/_sequence">
+                    <tr tal:define="odd repeat/login/odd"
+                            tal:attributes="class python:odd and 'odd' or 'even'">
+                        <td> 
+                            <span tal:replace="structure login/id" />
+                        </td>
+                        <td> 
+                            <span tal:replace="structure login/timestamp" />
+                        </td>
+                    </tr>
+                </tal:loopUsers>
+            </tbody>
+        </table>
+
+        <p tal:condition="not:batch" class="documentDescription">There are no logins for this user found.</p>
+
+        <metal:navigation use-macro="context/batch_macros/macros/navigation"></metal:navigation>
+
+    </tal:batching>
+</metal:main>
+
+</body>
+</html>

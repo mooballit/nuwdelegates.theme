@@ -1,0 +1,360 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+<head>
+<metal:block fill-slot="top_slot" tal:define="disable_column_one python:request.set('disable_plone.leftcolumn',1) if view.mobile else None;
+disable_column_two python:request.set('disable_plone.rightcolumn',1)" />
+<metal:header fill-slot="head_slot" tal:condition="view/worksite">
+<link href="/++theme++nuwdelegates.theme/css/slick-grid/slick.grid.css" media="screen" type="text/css" rel="stylesheet" />
+<link href="/++theme++nuwdelegates.theme/css/slick-grid/examples.css" media="screen" type="text/css" rel="stylesheet" />
+
+
+<script src="/++theme++nuwdelegates.theme/javascript/slick-grid/lib/jquery.event.drag-2.0.min.js"></script>
+<script src="/++theme++nuwdelegates.theme/javascript/jquery.ui.touch-punch.min.js"></script>
+<script src="/++theme++nuwdelegates.theme/javascript/tinynav.js"></script>
+<script src="/++theme++nuwdelegates.theme/javascript/slick-grid/slick.core.js"></script>
+<script src="/++theme++nuwdelegates.theme/javascript/slick-grid/slick.grid.js"></script>
+<script src="/++theme++nuwdelegates.theme/javascript/slick-grid/slick.dataview.js"></script>
+<script src="/++theme++nuwdelegates.theme/javascript/slick-grid/slick.editors.js"></script>
+<script src="/++theme++nuwdelegates.theme/javascript/slick-grid/plugins/slick.rowselectionmodel.js"></script>
+<script src="/++theme++nuwdelegates.theme/javascript/nuw.editors.js"></script>
+<script src="/++theme++nuwdelegates.theme/javascript/nuw.remotemodel.js"></script>
+<script src="/++theme++nuwdelegates.theme/javascript/members-grid.js" type="text/javascript"></script>
+<style>
+#available-cols-container { float: left; width: 330px; min-height:300px; margin: 0; border: 1px solid; margin-right: 10px; }
+#sortable1, #sortable2, #sortable3 { display: block; width: 140px; list-style-type: none; margin: 0; padding: 5px; float: left; margin-right: 10px; min-height: 200px; }
+#sortable2 { float: right; padding-right:13px }
+#sortable3 { border: 1px solid; width: 150px }
+#sortable1 li, #sortable2 li, #sortable3 li { display: block; margin: 0 5px 5px 5px; padding: 5px; width: 130px; font-size: 0.8em; }
+.select-values { width: 220px; margin-bottom: 2px; }
+</style>
+
+<style tal:condition="not:view/mobile">
+#container { min-width: 1024px; }
+#grid-header { min-width: 1024px; }
+</style>
+<style tal:condition="view/mobile">
+    #member-count-container { float: left; position: absolute; left: 130px; top: 13px }
+    .slick-viewport { -webkit-overflow-scrolling: touch; overflow: scroll }
+    #portal-column-one {
+        display: none;
+    }
+    #portal-column-content {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    #footer-container {
+        display: none;
+    }
+
+    #grid-header button {
+        padding: 2px 4px !important;
+    }
+    #grid-header .grid-title {
+        font-size: 1.7em !important;
+    }
+
+    #mobilenav { display: none }
+
+    .tinynav {
+        display: block !important;
+        opacity: 0;
+        position: absolute;
+        left: 5px;
+        top: 10px;
+        width: 40px;
+        height: 25px;
+    }
+
+    .toggle-nav img {
+        width: 40px;
+        height: 25px;
+    }
+    .toggle-nav {
+        display: block;
+        position: absolute;
+        left: 5px;
+        top: 10px;
+    }
+    #member-count-container { float: left; position: absolute; left: 130px; top: 13px }
+
+    #mobile-nav-container { display: block !important; }
+
+    #nuwlogo {
+        margin-left: 50px;
+    }
+</style>
+</metal:header>
+
+</head>
+<body>
+<metal:main fill-slot="content">
+    <metal:main define-macro="content">
+    <script type="text/javascript">
+      $(function () {
+        $("#mobilenav").tinyNav();
+        $(".toggle-nav").click(function(e) {
+            e.preventDefault();
+
+        })
+      });
+    </script>
+    <tal:hasworksite tal:condition="view/worksite">
+    <div id="grid-header">
+        <h2 class="grid-title">Site List</h2>
+        <div class="grid-search">
+            <span class="ui-icon ui-icon-search"></span> <!-- Search --> <input type="text" name="searchText" />
+            <select id="searchType">
+            </select>
+        </div>
+        <button type="button" href="#" class="print-link" tal:condition="not:view/mobile"><span class="ui-icon ui-icon-print"></span><span class="button-text">Print</span></button>
+        <button type="button" href="#" class="customcols-link"><span class="ui-icon ui-icon-gear"></span><span class="button-text">Custom Cols</span></button>
+        <button type="button" href="#" class="settings-link"><span class="ui-icon ui-icon-gear"></span><span class="button-text">Manage</span></button>        <button type="button" href="#" class="add-link"><span class="ui-icon ui-icon-plus"></span><span class="button-text">Add</span></button>
+        <div id="member-count-container" tal:condition="view/mobile"><h5>Total members: <span id="member-count"></span></h5></div>
+        <div class="visualClear"></div>
+        <h5 tal:condition="not:view/mobile">Total members: <span id="member-count"></span></h5>
+    </div>
+    <div id="grid"><div class="grid-loading"><h3>Loading grid...</h3></div></div>
+    <div id="add-member-dialog">
+        <form>
+            <h3>Personal Information</h3>
+            <div class="form-section">
+                <div class="field title-field">
+                    <label for="title-field">Title</label>
+                    <select id="title-field" name="title">
+                        <option>Ms</option>
+                        <option>Miss</option>
+                        <option>Mrs</option>
+                        <option>Mr</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="fname-field">First Name</label>
+                    <input id="fname-field" type="text" name="firstname" />
+                </div>
+                <div class="field">
+                    <label for="lname-field">Last Name</label>
+                    <input id="lname-field" type="text" name="lastname" />
+                </div>
+                <div class="field">
+                    <label for="pname-field">Preferred name</label>
+                    <input id="pname-field" type="text" name="preferredname" />
+                </div>
+                <div class="field">
+                    <label for="email-field">Email</label>
+                    <input id="email-field" type="text" name="email" />
+                </div>
+                <div class="field">
+                    <label for="home-phone-field">Home Phone</label>
+                    <input id="home-phone-field" type="text" name="home" />
+                </div>
+
+                <div class="field">
+                    <label for="work-phone-field">Work Phone</label>
+                    <input id="work-phone-field" type="text" name="work" />
+                </div>
+
+                <div class="field">
+                    <label for="mobile-phone-field">Mobile Phone</label>
+                    <input id="mobile-phone-field" type="text" name="mobile" />
+                </div>
+                <div class="visualClear"></div>
+            </div>
+            <h3>Employment Information</h3>
+            <div class="form-section">
+                <div class="field"><label for="shift-field">Shift</label><!-- <input id="shift-field" type="text" name="shift" /> -->
+                    <select name="shift" id="shift-field">
+                        <option value="morning">Morning</option>
+                        <option value="afternoon">Afternoon</option>
+                        <option value="evening">Evening</option>
+                        <option value="day">Day</option>
+                        <option value="night">Night</option>
+                        <option value="rotating">Rotating</option>
+                    </select>
+                </div>
+                <div class="field"><label for="activity-field">Activity</label>
+                    <select name="activity" id="activity-field">
+                        <option value="non-union">Non-union</option>
+                        <option value="asked to join">Asked to join</option>
+                        <option value="has joined">Has joined</option>
+                        <option value="hostile">Hostile</option>
+                        <option value="not working">Not working</option>
+                    </select>
+                </div>
+                <div class="field"><label for="location-field">Location Group</label><input id="location-field" type="text" name="locationgroup" /></div>
+                <div class="visualClear"></div>
+            </div>
+            <h3>Custom Information</h3>
+            <div class="form-section custom-information">
+                Custom fields go here!
+            </div>
+            <input class="submit-button" type="submit" value="Save Details" />
+        </form>
+    </div>
+
+    <div id="manage-columns-dialog">
+        <form>
+        <div style="float:left">
+            <h3>Available Columns</h3>
+        </div>
+        <div style="float:left; margin-left: 160px">
+            <h3>Active Columns</h3>
+        </div>
+        <div style="clear:both"></div>
+        <div id="available-cols-container">
+            <div class="cols-loading"><h4>Loading active columns...</h4></div>
+            <ul id="sortable1" class="connectedSortable">
+                <li id="column-nuwdbid" class="ui-state-default">Member Number</li>
+                <li id="column-name" class="ui-state-default">Name</li>
+                <li id="column-gender" class="ui-state-default">Gender</li>
+                <li id="column-postaddr" class="ui-state-default">Post Address</li>
+                <li id="column-homeaddr" class="ui-state-default">Home Address</li>
+                <li id="column-postrts" class="ui-state-default">Post RTS</li>
+                <li id="column-mobile" class="ui-state-default">Mobile Phone</li>
+                <li id="column-home" class="ui-state-default">Home Phone</li>
+                <li id="column-work" class="ui-state-default">Work Phone</li>
+                <li id="column-fax" class="ui-state-default">Fax</li>
+                <li id="column-email" class="ui-state-default">Email</li>
+                <li id="column-dob" class="ui-state-default">DOB</li>
+                <li id="column-status" class="ui-state-default">Financial Status</li>
+                <li id="column-activity" class="ui-state-default">Activity Level</li>
+                <li id="column-employeeid" class="ui-state-default">Employee ID</li>
+                <li id="column-employmenttype" class="ui-state-default">Employee Type</li>
+                <li id="column-shift" class="ui-state-default">Shift</li>
+            </ul>
+
+            <ul id="sortable2" class="connectedSortable">
+                <li id="column-locationcode" class="ui-state-default">Location Code</li>
+                <li id="column-agency" class="ui-state-default">Agency</li>
+                <li id="column-socialgroup" class="ui-state-default">Social Group</li>
+                <li id="column-languagemain" class="ui-state-default">Main Language</li>
+                <li id="column-cantranslate" class="ui-state-default">Can Translate</li>
+                <li id="column-languagetranslator" class="ui-state-default">Needs Translation</li>
+                <li id="column-issues" class="ui-state-default">Issues/Objections</li>
+                <li id="column-custom1" class="ui-state-default">Has Joined</li>
+                <li id="column-custom2" class="ui-state-default">Task1 (y/n)</li>
+                <li id="column-custom3" class="ui-state-default">Task2 (y/n)</li>
+                <li id="column-custom4" class="ui-state-default">Custom4</li>
+                <li id="column-custom5" class="ui-state-default">Custom5</li>
+                <li id="column-custom6" class="ui-state-default">Custom6</li>
+                <li id="column-custom7" class="ui-state-default">Custom7</li>
+                <li id="column-custom8" class="ui-state-default">Custom8</li>
+                <li id="column-custom9" class="ui-state-default">Custom9</li>
+                <li id="column-custom10" class="ui-state-default">Custom10</li>
+            </ul>
+        </div>
+        <ul id="sortable3" class="connectedSortable">
+        </ul>
+
+        <input id="save-manage-columns" style="float: left" type="submit" value="Save" />
+    </form>
+    </div>
+
+    <div id="customize-columns-dialog">
+        <form>
+            <div id="custom1">
+                <input id="custom1-input" name="custom1" placeholder="Custom 1 name" type="text"/>&nbsp;
+                <select id="custom1-type" name="custom1-type" class="type-select">
+                    <option value="text">Text line</option>
+                    <option value="select">Selection list</option>
+                    <option value="note">Notes text area</option>
+                </select> Values: <input id="custom1-selection" name="custom1-selection" class="select-values" type="text" placeholder="Option One|Another Option|Third Option" disabled="disabled"/><br/>
+            </div>
+            <div id="custom2">
+                <input id="custom2-input" name="custom2" placeholder="Custom 2 name"  type="text"/>&nbsp;
+                <select id="custom2-type" name="custom2-type" class="type-select">
+                    <option value="text">Text line</option>
+                    <option value="select">Selection list</option>
+                    <option value="note">Notes text area</option>
+                </select> Values:
+                <input id="custom2-selection" name="custom2-selection" class="select-values" type="text" placeholder="Option One|Another Option|Third Option" disabled="disabled"/><br/>
+            </div>
+            <div id="custom3">
+               <input id="custom3-input" name="custom3" placeholder="Custom 3 name"  type="text"/>&nbsp;
+                <select id="custom3-type" name="custom3-type" class="type-select">
+                    <option value="text">Text line</option>
+                    <option value="select">Selection list</option>
+                    <option value="note">Notes text area</option>
+                </select> Values:
+                <input id="custom3-selection" name="custom3-selection" class="select-values" type="text" placeholder="Option One|Another Option|Third Option" disabled="disabled"/><br/>
+            </div>
+            <div id="custom4">
+                <input id="custom4-input" name="custom4" placeholder="Custom 4 name"  type="text"/>&nbsp;
+                <select id="custom4-type" name="custom4-type" class="type-select">
+                    <option value="text">Text line</option>
+                    <option value="select">Selection list</option>
+                    <option value="note">Notes text area</option>
+                </select> Values:
+                <input id="custom4-selection" name="custom4-selection" class="select-values" type="text" placeholder="Option One|Another Option|Third Option" disabled="disabled"/><br/>
+            </div>
+            <div id="custom5">
+                <input id="custom5-input" name="custom5" placeholder="Custom 5 name"  type="text"/>&nbsp;
+                <select id="custom5-type" name="custom5-type" class="type-select">
+                    <option value="text">Text line</option>
+                    <option value="select">Selection list</option>
+                    <option value="note">Notes text area</option>
+                </select> Values:
+                <input id="custom5-selection" name="custom5-selection" class="select-values" type="text" placeholder="Option One|Another Option|Third Option"/><br/>
+            </div>
+            <div id="custom6">
+                <input id="custom6-input" name="custom6" placeholder="Custom 6 name"  type="text"/>&nbsp;
+                <select id="custom6-type" name="custom6-type" class="type-select">
+                    <option value="text">Text line</option>
+                    <option value="select">Selection list</option>
+                    <option value="note">Notes text area</option>
+                </select> Values:
+                <input id="custom6-selection" name="custom6-selection" class="select-values" type="text" placeholder="Option One|Another Option|Third Option"/><br/>
+            </div>
+            <div id="custom7">
+                <input id="custom7-input" name="custom7" placeholder="Custom 7 name"  type="text"/>&nbsp;
+                <select id="custom7-type" name="custom7-type" class="type-select">
+                    <option value="text">Text line</option>
+                    <option value="select">Selection list</option>
+                    <option value="note">Notes text area</option>
+                </select> Values:
+                <input id="custom7-selection" name="custom7-selection" class="select-values" type="text" placeholder="Option One|Another Option|Third Option"/><br/>
+            </div>
+            <div id="custom8">
+                <input id="custom8-input" name="custom8" placeholder="Custom 8 name"  type="text"/>&nbsp;
+                <select id="custom8-type" name="custom8-type" class="type-select">
+                    <option value="text">Text line</option>
+                    <option value="select">Selection list</option>
+                    <option value="note">Notes text area</option>
+                </select> Values:
+                <input id="custom8-selection" name="custom8-selection" class="select-values" type="text" placeholder="Option One|Another Option|Third Option"/><br/>
+            </div>
+            <div id="custom9">
+                <input id="custom9-input" name="custom9" placeholder="Custom 9 name"  type="text"/>&nbsp;
+                <select id="custom9-type" name="custom9-type" class="type-select">
+                    <option value="text">Text line</option>
+                    <option value="select">Selection list</option>
+                    <option value="note">Notes text area</option>
+                </select> Values:
+                <input id="custom9-selection" name="custom9-selection" class="select-values" type="text" placeholder="Option One|Another Option|Third Option"/><br/>
+            </div>
+            <div id="custom10">
+                <input id="custom10-input" name="custom10" placeholder="Custom 10 name"  type="text"/>&nbsp;
+                <select id="custom10-type" name="custom10-type" class="type-select">
+                    <option value="text">Text line</option>
+                    <option value="select">Selection list</option>
+                    <option value="note">Notes text area</option>
+                </select> Values:
+                <input id="custom10-selection" name="custom10-selection" class="select-values" type="text" placeholder="Option One|Another Option|Third Option"/><br/>
+            </div>
+
+            <input id="save-customize-columns" style="float: left" type="submit" value="Save" />
+        </form>
+    </div>
+    </tal:hasworksite>
+    <tal:nothasworksite tal:condition="not:view/worksite">
+        <h2>Site List</h2>
+        <h3>You're Logged in as an admin user with no direct link to a worksite. Choose a worksite from the top menu to see this feature.</h3>
+    </tal:nothasworksite>
+    </metal:main>
+</metal:main>
+</body>
+</html>

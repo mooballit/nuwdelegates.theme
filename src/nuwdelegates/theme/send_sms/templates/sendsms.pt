@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone">
+
+<head>
+    
+<metal:override fill-slot="top_slot"
+                tal:define="disable_column_two python:request.set('disable_plone.rightcolumn',1);
+                            dummy python:request.set('disable_border',1);"/>
+<metal:header fill-slot="head_slot">
+    <script src="/++theme++nuwdelegates.theme/javascript/send_sms/send_sms.js"></script>
+</metal:header>
+</head>
+
+<body>
+
+<metal:main fill-slot="main">
+    <!-- body macro where all the fields are -->
+    <metal:body define-macro="body">
+        <h1 class="documentFirstHeading">Send SMS</h1>
+        <div id="sendsms" class="smsbody">
+            <form method="post" tal:define="errors view/errors">
+                <div class="details">
+                    <div class="description">
+                        <p class="smspara"> Search multiple worksites or select multiple campaigns to the right to build a recipient list for your SMS message.</p>
+                        <p class="smspara"> Select multiple recipients by holding the Control (CTRL) button, and click each recipient. Or hold Shift, and click your first and last recipients to select a group.</p>
+                        <p class="smspara"> SMS messages have a maximum limit of 140 characters per message send out.</p>
+                    </div>
+                    <table class="dropmenus smspara">
+                        <tr>
+                            <td>Worksite:</td>
+                            <td>
+                                <input tal:attributes="class python:(errors.has_key('recipients') and 'err-shadow ' or '')" id="sms-worksite-search" style="margin-left: 20px; width: 276px;" type="text" placeholder="Search for a worksite" />
+                                <select id="worksites-list" name="worksites:list" style="display: block" multiple>
+                                    <tal:if-worksites condition="view/worksites" define="worksites view/worksites">
+                                        <option tal:repeat="worksite worksites" tal:attributes="value worksite" tal:content="python:view.get_group_longname(worksite)" selected></option>
+                                    </tal:if-worksites>
+                                </select>
+                                <script type="text/javascript">
+                                jQuery( function ( $ ) {
+                                    $( '#sms-worksite-search' ).autocomplete( {
+                                        source: '@@searchworksites.json',
+                                        minLength: 2,
+                                        select: function ( e, ui ) {
+                                            e.preventDefault();
+                                            
+                                            $( '#worksites-list' ).append( $('<option>', { value: ui.item.value, text: ui.item.label, selected: '' }));
+                                            $( this ).val( '' );
+                                        },
+                                        focus: function ( e, ui ) {
+                                            e.preventDefault();
+                                            $( this ).val( ui.item.label );
+                                        }
+                                    } );
+                                } );
+                                </script>
+                            </td>
+                        </tr>
+                        <tr><td>&nbsp;</td><td colspan="2"><span style="margin-left:20px">OR</span></td></tr>
+                        <tr>
+                            <td>Campaign:</td>
+                            <td><select id="campaigns-list" name="campaigns:list" tal:attributes="class python:(errors.has_key('recipients') and 'err-shadow ' or '') + 'dropdown'" multiple>
+                                <option tal:repeat="campaign view/get_campaigns" tal:attributes="value campaign/groupid; selected python:view.campaigns and campaign.groupid in view.recipients" tal:content="campaign/name"></option>
+                            </select></td>
+                        </tr>
+                    </table>
+                </div>
+                <textarea id="entry" placeholder="Add Message Here" onKeyDown="characterLimit(this.form.entry, this.form.charcount, 140);" onKeyUp="characterLimit(this.form.entry, this.form.charcount, 140);" tal:attributes="class python:(errors.has_key('entry') and 'err-shadow ' or '') + 'smsentry'" name="entry" tal:content="view/entry|nothing"></textarea>
+                <div id="finalise">
+                    <span class="smspara"><input readonly id="charcount" class="counter smspara" value="140"> characters left.</span>
+                    <button class="button smspara" value="sendbutton" type="submit">SEND</button>
+                    <button class="button smspara" value="cancelbutton" type="reset" style="margin-right: 10px;">CANCEL</button>
+                </div>
+            </form>
+            
+        </div>
+        <dl id="message-content" class="content">
+            <dt class="messageHeader">
+                <span>All Recently Sent Messages</span>
+            </dt>
+            <dd class="message" tal:repeat="message view/get_messages">
+                <span class="toContainer">
+                    <span class="itemHeader">To: </span>
+                    <span tal:attributes="title message/recipients" tal:content="message/recipients"></span>
+                </span>
+                <span class="messageContainer">
+                    <span tal:attributes="title message/message" tal:content="message/message"></span>
+                </span>
+                <span class="sentContainer">
+                    <span class="itemHeader">Sent: </span>
+                    <span tal:attributes="title message/sent" tal:content="message/sent"></span>
+                </span>
+            </dd>
+        </dl>
+    </metal:body>
+
+
+
+</metal:main>
+
+</body>
+</html>

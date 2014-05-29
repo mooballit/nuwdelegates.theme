@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts">
+    <javascript id="++theme++nuwdelegates.theme/javascript/delegates.border.js"/>
+    <javascript id="++theme++nuwdelegates.theme/javascript/bootstrap-collapse.js" compression="none" />
+    <javascript id="++resource++nuw.types.js/jquery.autocomplete.min.js" enabled="False"/>
+</object>

@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<tool-setup>
+ <required tool_id="portal_memberslistapi" class="nuwdelegates.theme.member_list.tool.MembersListAPITool"/>
+</tool-setup>

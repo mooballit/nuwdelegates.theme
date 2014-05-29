@@ -1,0 +1,50 @@
+<ul id="nuw-navigation-portlet" tal:define="rooturl context/@@plone_portal_state/navigation_root_url; thisurl python:request['URL']">
+    <a tal:condition="python:'front-page' in thisurl" tal:attributes="class string:selected; href string:${rooturl}">
+        <li id="discuss" class="sprite" /><span>Discussion</span>
+    </a>
+    <a tal:condition="python:not 'front-page' in thisurl" tal:attributes="class python:request['URL']; href string:${rooturl}">
+        <li id="discuss" class="sprite" /><span>Discussion</span>
+    </a>
+    
+    <a tal:condition="python:'sitelist' in thisurl" tal:attributes="class string:selected; href string:${rooturl}/sitelist">
+        <li id="member" class="sprite" /><span>Site List</span>
+    </a>
+    <a tal:condition="python:not 'sitelist' in thisurl" tal:attributes="href string:${rooturl}/sitelist">
+        <li id="member" class="sprite" /><span>Site List</span>
+    </a>
+    
+    <a tal:condition="python:'events' in thisurl" tal:attributes="class string:selected; href string:${rooturl}/events">
+        <li id="events" class="sprite" /><span>Events</span>
+    </a>
+    <a tal:condition="python:not 'events' in thisurl" tal:attributes="href string:${rooturl}/events">
+        <li id="events" class="sprite derp" /><span>Events</span>
+    </a>
+    
+    <a tal:condition="python:'training' in thisurl" tal:attributes="class string:selected; href string:${rooturl}/training">
+        <li id="train" class="sprite" /><span>Training</span>
+    </a>
+    <a tal:condition="python:not 'training' in thisurl" tal:attributes="href string:${rooturl}/training">
+        <li id="train" class="sprite" /><span>Training</span>
+    </a>
+
+    <a tal:condition="python:'worksitenoticeboard' in thisurl" tal:attributes="class string:selected;href string:${rooturl}/worksitenoticeboard/@@worksitenoticeboard">
+        <li id="noticeboard" class="sprite" /><span>Worksite</span><br><span style="padding-left: 37px;">Noticeboard</span>
+    </a>
+    <a tal:condition="python:not 'worksitenoticeboard' in thisurl" tal:attributes="href string:${rooturl}/worksitenoticeboard/@@worksitenoticeboard">
+        <li id="noticeboard" class="sprite" /><span>Worksite</span><br><span style="padding-left: 37px;">Noticeboard</span>
+    </a>
+    
+    <a tal:condition="python:'resources' in thisurl" tal:attributes="class string:selected; href string:${rooturl}/resources">
+        <li id="resources" class="sprite" /><span>Resources</span>
+    </a>
+    <a tal:condition="python:not 'resources' in thisurl" tal:attributes="href string:${rooturl}/resources">
+        <li id="resources" class="sprite" /><span>Resources</span>
+    </a>
+    
+    <a tal:condition="python:'sendsms' in thisurl" tal:attributes="class string:selected; href string:${rooturl}/sendsms/@@sendsms">
+        <li id="send" class="sprite" /><span>Send SMS</span>
+    </a>
+    <a tal:condition="python:not 'sendsms' in thisurl" tal:attributes="href string:${rooturl}/sendsms/@@sendsms">
+        <li id="send" class="sprite" /><span>Send SMS</span>
+    </a>
+</ul>

@@ -1,0 +1,79 @@
+@import url("macro.less");
+
+#nuw-navigation-portlet {
+    border-right: 1px solid black;
+    padding-right: 20px;
+    padding: 27px 0px;
+}
+
+#nuw-navigation-portlet a span {
+    display: inline-block;
+    position: relative;
+    bottom: 6px;
+}
+
+#discuss {
+    background:url('/++theme++nuwdelegates.theme/images/delegates-nav-icons.png') 0px 0px;
+}
+
+#member {
+    background:url('/++theme++nuwdelegates.theme/images/delegates-nav-icons.png') 0px -13px;
+}
+
+#events {
+    background:url('/++theme++nuwdelegates.theme/images/delegates-nav-icons.png') 0px -26px;
+}
+
+#train {
+    background:url('/++theme++nuwdelegates.theme/images/delegates-nav-icons.png') 0px -39px;
+}
+
+#directory {
+    background:url('/++theme++nuwdelegates.theme/images/delegates-nav-icons.png') 0px -52px;
+}
+
+#noticeboard {
+    background:url('/++theme++nuwdelegates.theme/images/delegates-nav-icons.png') 0px -65px;
+}
+
+#resources {
+    background:url('/++theme++nuwdelegates.theme/images/delegates-nav-icons.png') 0px -78px;
+}
+
+#send {
+    background:url('/++theme++nuwdelegates.theme/images/delegates-nav-icons.png') 0px -91px;
+}
+
+#nuw-navigation-portlet .sprite {
+    position: relative;
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    margin: 10px 15px 5px 10px;
+    overflow: hidden;
+}
+
+/* NUW Navigation Styles */
+#nuw-navigation-portlet a:link,
+#nuw-navigation-portlet a:visited,
+dl.portlet ul.navTreeLevel0 > .navTreeItem a:link,
+dl.portlet ul.navTreeLevel0 > .navTreeItem a:visited {
+    font-size: 14px;
+    font-family: OpenSans;
+    color: @darkgrey;
+    font: OpenSans;
+    display: block;
+    width: auto;
+}
+
+#nuw-navigation-portlet a:hover,
+dl.portlet ul.navTreeLevel0 > .navTreeItem a:hover {
+    background: @navhighlight;
+    color: @darkgrey !important;
+    display: block;
+    width: auto;
+}
+
+a.selected {
+    background: @navhighlight;
+}
